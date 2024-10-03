@@ -340,7 +340,6 @@ fun Top(
                         }
                     }
 
-
                     Field(text = textFieldContent,
                         onTextChange = { newText -> onTextFieldContentChange(newText) },
                         position = "top"

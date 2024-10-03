@@ -16,7 +16,7 @@ class Backend {
             }
 
             val interAddr = mutableListOf<String>()
-            val symtabArr = mutableListOf<MutableList<Any>>() // Change to MutableList to allow modifications
+            val symtabArr = mutableListOf<MutableList<Any>>()
             var locctr = 0
             var prev = 0
             var i = 0
@@ -59,7 +59,6 @@ class Backend {
                 }
 
                 interAddr.add(prev.toString(16))
-//
                 if (inputArr[i][0] != "-") {
                     var flag = 0
                     for (x in symtabArr.indices) {
@@ -78,7 +77,7 @@ class Backend {
             for (j in 1 until interAddr.size) {
                 intermediate.append("${interAddr[j]}\t\t\t${inputArr[j][0]}\t\t\t${inputArr[j][1]}\t\t\t${inputArr[j][2]}\n")
             }
-            // check if intermeidate is not empty
+
             if (intermediate.isNotEmpty()){
                 intermediate.deleteCharAt(intermediate.length - 1)
             }
@@ -109,6 +108,11 @@ class Backend {
                 for (opLine in optabArr) {
                     if (opLine[0] == intermediateArr[i][2]) {
                         found = true
+//                        Log.d("opLine[0]", opLine[0])
+                        if(intermediateArr[i][3] == "-"){
+                            objectCodeArr.add("${opLine[1]}0000")
+                            break
+                        }
                         var objectCode = opLine[1]
                         for (symLine in symtabArr) {
                             if (symLine[0] == intermediateArr[i][3]) {
@@ -130,7 +134,7 @@ class Backend {
                             val value = intermediateArr[i][3].substring(2, intermediateArr[i][3].length - 1)
                             var objectCode = ""
                             for (char in value) {
-                                objectCode += char.code.toString(16)  // charCodeAt equivalent in Kotlin
+                                objectCode += char.code.toString(16)
                             }
                             objectCodeArr.add(objectCode)
                         }
